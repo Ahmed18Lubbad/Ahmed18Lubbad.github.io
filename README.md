@@ -32,9 +32,9 @@ The profile is centralized in `src/data/profile.ts`:
 - `experience`: organization, department, role, dates, and responsibilities.
 - `education` and `certifications`: academic and training records.
 - `skillGroups`: skill categories and their listed skills.
-- `projects`: add verified case studies here. The current item is an explicitly labeled placeholder, not a claimed completed project.
+- `projects`: verified public GitHub projects are listed with repository links. Add more only when their titles, descriptions, and links are confirmed.
 
-English and Arabic interface copy lives in `src/data/translations.ts`. For new content, add both English and Arabic text, then connect it to the component in `src/app/page.tsx`. No LinkedIn or GitHub profile URL is assumed; add a real URL to `profile.linkedin` or `profile.github` when ready.
+English and Arabic interface copy lives in `src/data/translations.ts`. For new content, add both English and Arabic text, then connect it to the component in `src/app/page.tsx`. The public LinkedIn and GitHub profile URLs are already in `profile.linkedin` and `profile.github`.
 
 ## CV builder
 
