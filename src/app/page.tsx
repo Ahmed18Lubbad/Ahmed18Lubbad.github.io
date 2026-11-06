@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { MotionConfig, motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Globe2, Menu as MenuIcon, Moon, Plus, Sun, X } from "lucide-react";
 import { certifications, education, experience, profile, projectCategories, projects, skillGroups } from "@/data/profile";
@@ -90,8 +91,9 @@ export default function Home() {
             <div className="hero-actions"><a className="button button-primary" href="#projects">{t.explore}<ArrowUpRight size={15} /></a><button className="button button-secondary" onClick={() => setCvOpen(true)}>{t.cv}<Plus size={15} /></button><a className="button button-quiet" href="#contact">{t.contact}<ArrowDown size={14} /></a></div>
             <div className="availability"><span className="status-ring" />{t.availability}</div>
           </motion.div>
-          <motion.div className="hero-visual" role="img" aria-label={lang === "en" ? "Abstract profile illustration" : "رسم تجريدي للملف الشخصي"} initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .8, delay: .12 }}>
-            <div className="visual-grid" /><div className="visual-orbit orbit-one" /><div className="visual-orbit orbit-two" /><div className="visual-core"><span>AL</span></div>
+          <motion.div className="hero-visual" initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .8, delay: .12 }}>
+            <Image src="/ahmed-lubbad.jpg" alt={lang === "en" ? "Ahmed Lubbad" : "أحمد لبد"} fill priority unoptimized sizes="(max-width: 760px) 100vw, 475px" className="portrait-image" />
+            <div className="visual-grid" /><div className="visual-orbit orbit-one" /><div className="visual-orbit orbit-two" />
             <div className="visual-label label-top">GAZA, PALESTINE <i>·</i> 31.5°N</div><div className="visual-label label-bottom">PEOPLE <i>×</i> DATA <i>×</i> SAFETY</div>
           </motion.div>
           <div className="hero-bottom"><span>01 / 05</span><span>SCROLL TO EXPLORE <b>↓</b></span></div>
