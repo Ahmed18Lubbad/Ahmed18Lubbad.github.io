@@ -20,6 +20,7 @@ export default function Home() {
   const [menu, setMenu] = useState(false);
   const [cvOpen, setCvOpen] = useState(false);
   const [category, setCategory] = useState<string>("All");
+  const [query, setQuery] = useState("");
   const [included, setIncluded] = useState<string[]>(cvSelectionKeys);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
@@ -38,7 +39,7 @@ export default function Home() {
     document.body.dataset.theme = dark ? "dark" : "light";
   }, [lang, dark]);
 
-  const filteredProjects = useMemo(() => category === "All" ? projects : projects.filter((project) => project.category === category), [category]);
+  const filteredProjects = useMemo(() => { const q = query.trim().toLowerCase(); return projects.filter((project) => (category === "All" || project.category === category) && (!q || [project.title, project.titleAr, project.description, project.descriptionAr, ...project.tools].join(" ").toLowerCase().includes(q))).sort((a, b) => Number(!!b.url) - Number(!!a.url)); }, [category, query]);
 
   function openPrint() {
     document.body.classList.add("printing-cv");
@@ -117,8 +118,9 @@ export default function Home() {
         </div></section>
 
         <section className="section container" id="projects"><SectionTitle number="04" title={t.projects} description={t.projectsSub} />
+          <input className="project-search" type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={lang === "en" ? "Search projects…" : "ابحث في المشاريع…"} aria-label={lang === "en" ? "Search projects" : "البحث في المشاريع"} />
           <div className="filters" role="group" aria-label={lang === "en" ? "Filter projects" : "تصفية المشاريع"}>{projectCategories.map((value) => <button key={value} className={category === value ? "filter active" : "filter"} onClick={() => setCategory(value)}>{lang === "en" ? value : ({ "All": t.all, "Management Systems": "أنظمة الإدارة", "Web Applications": "تطبيقات الويب", "Desktop Software": "برامج سطح المكتب", "Interface Design": "تصميم الواجهات" } as Record<string, string>)[value]}</button>)}</div>
-          <div className="project-grid">{filteredProjects.map((project) => <article className="project-card" key={project.id}><div className="project-art" style={project.image ? { backgroundImage: `linear-gradient(#0b102055,#0b102055),url("${project.image}")`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}><span>PROJECT / 0{projects.indexOf(project) + 1}</span><div className="project-orb" /><span className="project-category">{lang === "en" ? project.category : ({ "Management Systems": "أنظمة الإدارة", "Web Applications": "تطبيقات الويب", "Desktop Software": "برامج سطح المكتب", "Interface Design": "تصميم الواجهات" } as Record<string, string>)[project.category]}</span></div><div className="project-body"><div className="project-placeholder">{t.repoLabel}</div><h3>{lang === "en" ? project.title : project.titleAr}</h3><p>{lang === "en" ? project.description : project.descriptionAr}</p>{project.date && <time className="project-date">{project.date}</time>}<div className="skill-tags">{project.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>{project.url && <a className="project-external" href={project.url} target="_blank" rel="noreferrer">{lang === "en" ? "View repository" : "عرض المستودع"} <ArrowUpRight size={12} /></a>}</div></article>)}</div>
+          <div className="project-grid">{filteredProjects.map((project) => <article className="project-card" key={project.id}><div className="project-art" style={project.image ? { backgroundImage: `linear-gradient(#0b102055,#0b102055),url("${project.image}")`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}><span>PROJECT / 0{projects.indexOf(project) + 1}</span><div className="project-orb" /><span className="project-category">{lang === "en" ? project.category : ({ "Management Systems": "أنظمة الإدارة", "Web Applications": "تطبيقات الويب", "Desktop Software": "برامج سطح المكتب", "Interface Design": "تصميم الواجهات" } as Record<string, string>)[project.category]}</span></div><div className="project-body"><div className="project-placeholder">{t.repoLabel}</div><h3>{lang === "en" ? project.title : project.titleAr}</h3><p>{lang === "en" ? project.description : project.descriptionAr}</p>{project.date && <time className="project-date">{project.date}</time>}<div className="skill-tags">{project.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>{!project.url && <span className="project-private">{lang === "en" ? "Private repository" : "مستودع خاص"}</span>}{project.url && <a className="project-external" href={project.url} target="_blank" rel="noreferrer">{lang === "en" ? "View repository" : "عرض المستودع"} <ArrowUpRight size={12} /></a>}</div></article>)}</div>
         </section>
 
         <section className="section education-section" id="education"><div className="container"><SectionTitle number="05" title={t.education} description={t.educationSub} /><div className="education-grid">
