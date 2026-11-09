@@ -93,7 +93,7 @@ export default function Home() {
           </motion.div>
           <motion.div className="hero-visual" initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .8, delay: .12 }}>
             <Image src="/ahmed-lubbad.png" alt={lang === "en" ? "Ahmed Lubbad" : "أحمد لبد"} fill priority unoptimized sizes="(max-width: 760px) 100vw, 475px" className="portrait-image" />
-            <div className="visual-grid" /><div className="visual-orbit orbit-one" /><div className="visual-orbit orbit-two" />
+            <div className="visual-grid" />
             <div className="visual-label label-top">GAZA, PALESTINE <i>·</i> 31.5°N</div><div className="visual-label label-bottom">PEOPLE <i>×</i> DATA <i>×</i> SAFETY</div>
           </motion.div>
           <div className="hero-bottom"><span>01 / 05</span><span>SCROLL TO EXPLORE <b>↓</b></span></div>
