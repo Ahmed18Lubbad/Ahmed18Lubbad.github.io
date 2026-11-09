@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { MotionConfig, motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Globe, Globe2, LayoutDashboard, Menu as MenuIcon, Monitor, Moon, PenTool, Plus, Sun, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, BookOpen, Boxes, Briefcase, Building2, Code, Coffee, FlaskConical, FolderOpen, Globe, Globe2, GraduationCap, Handshake, Image as ImageIcon, LayoutDashboard, LayoutTemplate, Menu as MenuIcon, Monitor, Moon, Palette, PenTool, Plus, Sprout, Sun, UtensilsCrossed, Users, X, CalendarCheck } from "lucide-react";
 import { certifications, education, experience, profile, projectCategories, projects, skillGroups } from "@/data/profile";
 import { copy } from "@/data/translations";
 import { updatePortfolioPreference, usePortfolioPreferences } from "@/lib/preferences";
@@ -13,8 +13,29 @@ const cvSelectionKeys = ["profile", ...experience.map((_, i) => `experience-${i}
 
 const categoryIcons: Record<string, typeof Globe> = { "Management Systems": LayoutDashboard, "Web Applications": Globe, "Desktop Software": Monitor, "Interface Design": PenTool };
 
-function ProjectIcon({ category }: { category: string }) {
-  const Icon = categoryIcons[category] ?? Globe;
+const projectIcons: Record<string, typeof Globe> = {
+  "institutions-management-system": Users,
+  "luchi-cafe": Coffee,
+  "smart-fx-studio": ImageIcon,
+  "appointment-booking-system": CalendarCheck,
+  "web-template-collection": LayoutTemplate,
+  "caade": Sprout,
+  "design-portfolio-final": Palette,
+  "humanitarian-aid-management-system": Handshake,
+  "humanitarian-aid-management-platform": Handshake,
+  "company-rental-management-system": Building2,
+  "employee-management-java": Briefcase,
+  "web-design-project-final": Code,
+  "restaurant-menu-design": UtensilsCrossed,
+  "web-project-collection": FolderOpen,
+  "student-project-collection": GraduationCap,
+  "portfolio-lab-project": FlaskConical,
+  "software-projects-collection": Boxes,
+  "adld-homework": BookOpen,
+};
+
+function ProjectIcon({ id, category }: { id: string; category: string }) {
+  const Icon = projectIcons[id] ?? categoryIcons[category] ?? Globe;
   return <Icon size={44} strokeWidth={1.4} className="project-icon" aria-hidden="true" />;
 }
 
@@ -127,7 +148,7 @@ export default function Home() {
         <section className="section container" id="projects"><SectionTitle number="04" title={t.projects} description={t.projectsSub} />
           <input className="project-search" type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={lang === "en" ? "Search projects…" : "ابحث في المشاريع…"} aria-label={lang === "en" ? "Search projects" : "البحث في المشاريع"} />
           <div className="filters" role="group" aria-label={lang === "en" ? "Filter projects" : "تصفية المشاريع"}>{projectCategories.map((value) => <button key={value} className={category === value ? "filter active" : "filter"} onClick={() => setCategory(value)}>{lang === "en" ? value : ({ "All": t.all, "Management Systems": "أنظمة الإدارة", "Web Applications": "تطبيقات الويب", "Desktop Software": "برامج سطح المكتب", "Interface Design": "تصميم الواجهات" } as Record<string, string>)[value]}</button>)}</div>
-          <div className="project-grid">{filteredProjects.map((project) => <article className="project-card" key={project.id}><div className="project-art" style={project.image ? { backgroundImage: `linear-gradient(#0b102055,#0b102055),url("${project.image}")`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}><span>PROJECT / 0{projects.indexOf(project) + 1}</span><div className="project-orb" /><ProjectIcon category={project.category} /><span className="project-category">{lang === "en" ? project.category : ({ "Management Systems": "أنظمة الإدارة", "Web Applications": "تطبيقات الويب", "Desktop Software": "برامج سطح المكتب", "Interface Design": "تصميم الواجهات" } as Record<string, string>)[project.category]}</span></div><div className="project-body"><div className="project-placeholder">{t.repoLabel}</div><h3>{lang === "en" ? project.title : project.titleAr}</h3><p>{lang === "en" ? project.description : project.descriptionAr}</p>{project.date && <time className="project-date">{project.date}</time>}<div className="skill-tags">{project.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>{!project.url && <span className="project-private">{lang === "en" ? "Private repository" : "مستودع خاص"}</span>}{project.url && <a className="project-external" href={project.url} target="_blank" rel="noreferrer">{lang === "en" ? "View repository" : "عرض المستودع"} <ArrowUpRight size={12} /></a>}</div></article>)}</div>
+          <div className="project-grid">{filteredProjects.map((project) => <article className="project-card" key={project.id}><div className="project-art" style={project.image ? { backgroundImage: `linear-gradient(#0b102055,#0b102055),url("${project.image}")`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}><span>PROJECT / 0{projects.indexOf(project) + 1}</span><div className="project-orb" /><ProjectIcon id={project.id} category={project.category} /><span className="project-category">{lang === "en" ? project.category : ({ "Management Systems": "أنظمة الإدارة", "Web Applications": "تطبيقات الويب", "Desktop Software": "برامج سطح المكتب", "Interface Design": "تصميم الواجهات" } as Record<string, string>)[project.category]}</span></div><div className="project-body"><div className="project-placeholder">{t.repoLabel}</div><h3>{lang === "en" ? project.title : project.titleAr}</h3><p>{lang === "en" ? project.description : project.descriptionAr}</p>{project.date && <time className="project-date">{project.date}</time>}<div className="skill-tags">{project.tools.map((tool) => <span key={tool}>{tool}</span>)}</div>{!project.url && <span className="project-private">{lang === "en" ? "Private repository" : "مستودع خاص"}</span>}{project.url && <a className="project-external" href={project.url} target="_blank" rel="noreferrer">{lang === "en" ? "View repository" : "عرض المستودع"} <ArrowUpRight size={12} /></a>}</div></article>)}</div>
         </section>
 
         <section className="section education-section" id="education"><div className="container"><SectionTitle number="05" title={t.education} description={t.educationSub} /><div className="education-grid">
