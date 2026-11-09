@@ -22,3 +22,5 @@ body.printing-cv .site-shell,body.printing-cv .cv-backdrop{display:none!importan
 .project-search:focus{outline:none;border-color:var(--blue)}
 .project-private{display:inline-block;margin-top:10px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:4px 8px;border-radius:3px}
 .project-icon{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#bcd0ff;opacity:.85;z-index:1;pointer-events:none}
+.project-orb:after{display:none}
+.project-icon{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:40px;height:40px;color:#e4ecff;opacity:1;z-index:1;pointer-events:none;filter:none}

@@ -36,7 +36,7 @@ const projectIcons: Record<string, typeof Globe> = {
 
 function ProjectIcon({ id, category }: { id: string; category: string }) {
   const Icon = projectIcons[id] ?? categoryIcons[category] ?? Globe;
-  return <Icon size={44} strokeWidth={1.4} className="project-icon" aria-hidden="true" />;
+  return <Icon size={40} strokeWidth={1.6} className="project-icon" aria-hidden="true" />;
 }
 
 function SectionTitle({ number, title, description }: { number: string; title: string; description?: string }) {
